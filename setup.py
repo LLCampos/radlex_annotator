@@ -6,7 +6,7 @@ except ImportError:
 setup(
     name='radlex_annotator',
     version='0.1',
-    packages=['annotator', 'annotator.Annotator'],
+    packages=['annotator'],
     description="A local NCBO Annotator replacement to annotate RadLex terms.",
     author='Lu\xc3\xads Campos',
     author_email='luis.filipe.lcampos@gmail.com',
