@@ -1,10 +1,13 @@
 from lxml import etree
+import os
+import annotator
 
 
 class RadlexOntology(object):
 
     def __init__(self):
-        ontology_file_path = 'annotator/radlex.owl'
+        annotator_package_path = os.path.dirname(annotator.__file__)
+        ontology_file_path = os.path.join(annotator_package_path, 'radlex.owl')
 
         with open(ontology_file_path) as f:
             self.ontology_tree = etree.parse(f).getroot()
