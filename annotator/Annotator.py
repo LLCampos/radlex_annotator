@@ -22,23 +22,23 @@ class RadlexAnnotator(object):
 
         for ontology_class in ontology_classes:
 
-            name_elems = RadlexOntology.get_pref_and_synonyms(ontology_class)
+            names = self.ontology.get_pref_and_synonyms(ontology_class)
 
             annotations = []
 
             # type of name is 'preferred' or 'synonym'
-            for type_of_name in name_elems.keys():
+            for type_of_name in names.keys():
 
-                for name_elem in name_elems[type_of_name]:
+                for name in names[type_of_name]:
 
-                    name_text = name_elem.text.upper()
+                    name_upper = name.upper()
 
-                    if len(name_text) < min_length or name_text in stopwords:
+                    if len(name_upper) < min_length or name_upper in stopwords:
                         continue
 
-                    escaped_name_text = re.escape(name_text)
+                    escaped_name = re.escape(name_upper)
 
-                    name_regex = r'\b' + escaped_name_text + r'\b'
+                    name_regex = r'\b' + escaped_name + r'\b'
 
                     for match in re.finditer(name_regex, text.upper()):
                         span = match.span()
@@ -60,11 +60,8 @@ class RadlexAnnotator(object):
 
                 annotated_class = {}
                 annotated_class['label'] = ontology_class.find('{*}label').text
-                annotated_class['prefName'] = name_elems['preferred'][0].text
-                annotated_class['synonym'] = map(
-                    lambda synonym: synonym.text,
-                    name_elems['synonym']
-                )
+                annotated_class['prefName'] = names['preferred']
+                annotated_class['synonym'] = names['synonym']
 
                 definition = ontology_class.find('{*}Definition')
                 if definition is not None:

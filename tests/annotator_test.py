@@ -14,4 +14,4 @@ class AnnotatorTests(unittest.TestCase):
         annot = Annotator.RadlexAnnotator()
         annotations = annot.annotate(text)
 
-        self.assertEqual(73, len(annotations))
+        self.assertEqual(75, len(annotations))
