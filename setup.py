@@ -12,6 +12,7 @@ setup(
     author_email='luis.filipe.lcampos@gmail.com',
     url='https://github.com/LLCampos/radlex_annotator',
     license='',
+    include_package_data=True,
     install_requires=[
         'lxml'
     ],
