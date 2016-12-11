@@ -16,6 +16,11 @@ class RadlexAnnotator(object):
         min_length - the minimum a word has to have to be annotated
         """
 
+        # Preprocessing of text
+        text = text.decode('utf-8')
+        text = re.sub(r'[\n\r]+', ' ', text)
+        text = text.upper()
+
         ontology_classes = self.ontology.get_entity_elements()
 
         annotations_result = []
@@ -40,9 +45,7 @@ class RadlexAnnotator(object):
 
                     name_regex = r'\b' + escaped_name + r'\b'
 
-                    text = re.sub(r'[\n\r]+', ' ', text)
-
-                    for match in re.finditer(name_regex, text.upper()):
+                    for match in re.finditer(name_regex, text):
                         span = match.span()
                         annotation = {}
 
