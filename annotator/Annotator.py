@@ -18,7 +18,6 @@ class RadlexAnnotator(object):
 
         # Preprocessing of text
         text = text.decode('utf-8')
-        text = re.sub(r'[\n\r]+', ' ', text)
         text = text.upper()
 
         ontology_classes = self.ontology.get_entity_elements()
@@ -42,8 +41,11 @@ class RadlexAnnotator(object):
                         continue
 
                     escaped_name = re.escape(name_upper)
-
-                    name_regex = r'\b' + escaped_name + r'\b'
+                    # I still want to match words that are separated by newlines
+                    name_regex = re.sub('\\\\ ', r'[ |\n|\r|\r\n]',
+                                        escaped_name)
+                    # Only want whole words
+                    name_regex = r'\b' + name_regex + r'\b'
 
                     for match in re.finditer(name_regex, text):
                         span = match.span()
