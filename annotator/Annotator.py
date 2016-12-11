@@ -40,6 +40,8 @@ class RadlexAnnotator(object):
 
                     name_regex = r'\b' + escaped_name + r'\b'
 
+                    text = re.sub(r'[\n\r]+', ' ', text)
+
                     for match in re.finditer(name_regex, text.upper()):
                         span = match.span()
                         annotation = {}
