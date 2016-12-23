@@ -12,8 +12,9 @@ class RadlexOntology(object):
         with open(ontology_file_path) as f:
             self.ontology_tree = etree.parse(f).getroot()
 
-        self.default_namespace = self.ontology_tree.nsmap[None]
-        self.rdf_namespace = self.ontology_tree.nsmap['rdf']
+        self.namespaces = self.ontology_tree.nsmap
+        self.namespaces['radlex'] = self.namespaces[None]
+        del self.namespaces[None]
 
     def get_entity_elements(self):
         """Return all elements that represent an ontology entity."""
@@ -37,7 +38,7 @@ class RadlexOntology(object):
         # If it does not have a Preferred_name elem, the preferred name will be
         # the ID of the class.
         if not preferred_name_elem:
-            id_key = '{' + self.rdf_namespace + '}ID'
+            id_key = '{' + self.namespaces['rdf'] + '}ID'
             preferred_name = class_elem.get(id_key)
         else:
             preferred_name = map(lambda elem: elem.text, preferred_name_elem)
