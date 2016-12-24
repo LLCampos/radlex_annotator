@@ -48,3 +48,25 @@ class RadlexOntology(object):
 
         return {'preferred': preferred_name,
                 'synonym': synonyms}
+
+    def get_direct_children(self, rid):
+        """Returns a list of all direct child nodes of the node with the RID
+        given in the argument."""
+        query = '//rdfs:subClassOf[@rdf:resource="#{}"]/..'.format(rid)
+        return self.ontology_tree.xpath(query, namespaces=self.namespaces)
+
+    def get_children(self, rid):
+        """Returns a list of all child nodes of the node with the RID
+        given in the argument."""
+        children = []
+        direct_children = self.get_direct_children(rid)
+        children += direct_children
+        direct_children_rids = map(
+            lambda node: node.get('{{{}}}ID'.format(self.namespaces['rdf'])),
+            direct_children
+        )
+
+        for child_rid in direct_children_rids:
+            children += self.get_children(child_rid)
+
+        return children
