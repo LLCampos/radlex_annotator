@@ -1,1 +1,2 @@
 include annotator/radlex.owl
+include annotator/radlex_subset_anatomical_entity.owl
