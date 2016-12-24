@@ -5,9 +5,9 @@ from stopwords import STOPWORDS
 
 class RadlexAnnotator(object):
 
-    def __init__(self):
+    def __init__(self, subset=False):
 
-        self.ontology = RadlexOntology()
+        self.ontology = RadlexOntology(subset)
 
     def annotate(self, text, stopwords=STOPWORDS, min_length=3):
         """

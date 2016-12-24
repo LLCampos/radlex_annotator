@@ -5,9 +5,18 @@ import annotator
 
 class RadlexOntology(object):
 
-    def __init__(self):
+    def __init__(self, subset=False):
+
+        if not subset:
+            onto_file_name = 'radlex.owl'
+        elif subset == 'anatomical_entity':
+            onto_file_name = 'radlex_subset_anatomical_entity.owl'
+        else:
+            raise Exception('That subset is not supported.')
+
         annotator_package_path = os.path.dirname(annotator.__file__)
-        ontology_file_path = os.path.join(annotator_package_path, 'radlex.owl')
+        ontology_file_path = os.path.join(annotator_package_path,
+                                          onto_file_name)
 
         with open(ontology_file_path) as f:
             self.ontology_tree = etree.parse(f).getroot()
