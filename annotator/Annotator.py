@@ -17,6 +17,7 @@ class RadlexAnnotator(object):
         """
 
         # Preprocessing of text
+        text = re.sub('\s+', ' ', text)
         text = text.decode('utf-8')
         text = text.upper()
 
@@ -41,11 +42,8 @@ class RadlexAnnotator(object):
                         continue
 
                     escaped_name = re.escape(name_upper)
-                    # I still want to match words that are separated by newlines
-                    name_regex = re.sub('\\\\ ', r'[ |\n|\r|\r\n]',
-                                        escaped_name)
                     # Only want whole words
-                    name_regex = r'\b' + name_regex + r'\b'
+                    name_regex = r'\b' + escaped_name + r'\b'
 
                     for match in re.finditer(name_regex, text):
                         span = match.span()

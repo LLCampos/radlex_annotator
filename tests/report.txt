@@ -10,7 +10,9 @@ FOR GCTTS: •True bone invasion rather than focal erosion is not typical and is
 
 Our patient underwent core needle biopsy performed by interventional radiology. Once initial pathology confirmed giant cell tumor of tendon sheath, she was scheduled for non-emergent local excision. Final path also correlated with this diagnosis. Treatment: Local excision.
 
-in 2 hasnt multiplanar reconstruction
+in 2 hasnt multiplanar reconstruction.
 
 informed
-consent
+  consent.
+
+
